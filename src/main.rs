@@ -5,6 +5,7 @@
 //   yami-play [ФАЙЛ|ПАПКА|URL…]
 //   yami-play shot [-o ПАПКА] [--lang en]    снимки окна в PNG без Wayland и без mpv
 
+mod setup;
 mod app;
 mod i18n;
 mod mpv;
@@ -16,13 +17,16 @@ use std::path::PathBuf;
 
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
+    if let Some(c) = yami_px::install::dispatch(&setup::SPEC, &args) {
+        std::process::exit(c);
+    }
     match args.first().map(|s| s.as_str()) {
         Some("--version") => {
             println!("yami-play {}", env!("CARGO_PKG_VERSION"));
             return;
         }
         Some("-h") | Some("--help") => {
-            println!("yami-play [FILE|DIR|URL…] | shot [-o DIR] [--lang en]\n\nkeys: space pause · ←/→ 5 s (shift 1 s, ctrl 30 s) · ↑/↓ volume · f fullscreen · m mute\n      n/p next/previous · [ ] speed · a audio · s subtitles · l repeat · x pixel scaling\n      c save frame · , . frame step · 1…9 jump to 10…90 % · i details · q quit");
+            println!("yami-play [FILE|DIR|URL…] | install | uninstall | deps | shot [-o DIR] [--lang en]\n\nkeys: space pause · ←/→ 5 s (shift 1 s, ctrl 30 s) · ↑/↓ volume · f fullscreen · m mute\n      n/p next/previous · [ ] speed · a audio · s subtitles · l repeat · x pixel scaling\n      c save frame · , . frame step · 1…9 jump to 10…90 % · i details · q quit");
             return;
         }
         Some("shot") => std::process::exit(shot(&args[1..])),

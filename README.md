@@ -5,10 +5,11 @@ Video and music player for Wayland (libmpv, loaded at run time). A part of the [
 ## Install
 
 ```sh
-./install.sh
+chmod +x yami-play
+./yami-play install
 ```
 
-Needs Rust 1.89 or newer, no root. It installs into `~/.local`. `./install.sh --deps` lists what it wants from the system, `./install.sh --uninstall` removes it.
+One file, no Rust and no root. `install` asks for the settings, lists what it will change and installs into `~/.local` only after your yes (`--yes` skips the questions, `--all` also turns on every option). `./yami-play deps` lists what it wants from the system, `./yami-play uninstall` removes it. To build it yourself: Rust 1.89 or newer, `cargo build --release --locked`, then `target/release/yami-play install`.
 
 ## Use
 
