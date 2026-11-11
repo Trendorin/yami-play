@@ -891,7 +891,7 @@ dependencies = [
 [[package]]
 name = "yami-px"
 version = "3.0.0"
-source = "git+https://github.com/Trendorin/yami?tag=px-v3.0.0#57042ca36d29bebfd30f88307dee483af639ce88"
+source = "git+https://github.com/Trendorin/yami?tag=px-v3.0.0#862e9adac9b8f6cd972f096fe5f46207d16451c0"
 dependencies = [
  "ab_glyph",
  "image",

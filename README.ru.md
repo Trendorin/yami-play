@@ -85,7 +85,7 @@ YAMI_PLAY_OPTS="hwdec=no,sub-font-size=40" yami-play film.mkv   # любая о�
 | `font` | семейство шрифта |
 | `animations`, `animSpeed` | вкл/выкл; их длительность (0.5 быстро, 2 медленно) |
 | `colors` | любой из `bg panel surface surfaceHi codeBg border dim accent deep glow bright selection text textDim textFaint onAccent textHi ok warn` |
-| `lang` | `ru`, `en`, `pt-BR`; пусто — как в системе |
+| `lang` | `ru`, `en`, `pt-BR`, `es`, `de`, `fr`, `uk`, `pl`; пусто — как в системе |
 
 Например, управление в пиксельном виде и красном цвете темы: `{ "preset": "yami", "palette":
 "blood" }`, или прямоугольное и плоское: `{ "preset": "plain", "corners": "square", "shadow": "none" }`.

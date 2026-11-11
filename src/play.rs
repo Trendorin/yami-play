@@ -587,7 +587,6 @@ fn tip(a: &str) -> &'static str {
 
 fn info(ui: &mut Ui, p: &P, w: i32) {
     let t = ui.t;
-    let iw = 320;
     let dir = p.path().and_then(|x| x.parent()).map(|d| d.to_string_lossy().replace(&crate::paths::home().to_string_lossy().to_string(), "~")).unwrap_or_default();
     let mut rows: Vec<(&str, String)> = vec![("формат", p.format.clone())];
     if p.video {
@@ -606,6 +605,10 @@ fn info(ui: &mut Ui, p: &P, w: i32) {
     }
     rows.push(("дорожек", p.tracks.0.to_string()));
     rows.push(("папка", dir));
+    // колонки — по самой длинной подписи на языке интерфейса и по самому длинному значению
+    let kw = rows.iter().map(|(k, _)| ui.w(PX, k)).max().unwrap_or(0).max(88) + 12;
+    let vw = rows.iter().map(|(_, v)| ui.f.width(PX, v)).max().unwrap_or(0);
+    let iw = (14 + kw + vw + 12).clamp(320, 460).min(w - 24);
     let r = R::new(w - iw - 12, 46, iw, 40 + rows.len() as i32 * 24);
     ui.cv.pxbox(r, &BoxStyle::new(t.panel.alpha(0.96), t.border).shadow(4));
     ui.zone(r, Act::Block, Cur::Default);
@@ -613,8 +616,8 @@ fn info(ui: &mut Ui, p: &P, w: i32) {
     ui.text_in(PX, R::new(r.x + 24, r.y + 6, r.w - 30, 24), "сведения", t.text);
     let mut y = r.y + 36;
     for (k, val) in rows {
-        ui.text_in(PX, R::new(r.x + 14, y, 100, 20), k, t.text_faint);
-        ui.cv.text_in(ui.f, PX, R::new(r.x + 114, y, r.w - 126, 20), &val, t.text_dim);
+        ui.text_in(PX, R::new(r.x + 14, y, kw - 12, 20), k, t.text_faint);
+        ui.cv.text_in(ui.f, PX, R::new(r.x + 14 + kw, y, r.w - 26 - kw, 20), &val, t.text_dim);
         y += 24;
     }
 }
